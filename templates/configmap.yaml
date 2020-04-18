@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: {{ $.Release.Name }}
+    labels:
+        app: {{ $.Release.Name }}
+    namespace: {{ $.Release.Namespace }}
+data:
+    nginx.conf: |
+        user  nginx;
+        worker_processes  1;
+        
+        error_log  /var/log/nginx/error.log warn;
+        pid        /var/run/nginx.pid;
+        
+        load_module /usr/lib/nginx/modules/ngx_http_perl_module.so;
+        
+        events {
+            worker_connections  1024;
+        }
+        
+        http {
+            include       /etc/nginx/mime.types;
+            default_type  application/octet-stream;
+        
+            log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                                '$status $body_bytes_sent "$http_referer" '
+                                '"$http_user_agent" "$http_x_forwarded_for"';
+        
+            access_log  /var/log/nginx/access.log  main;
+        
+            sendfile        on;
+            #tcp_nopush     on;
+        
+            keepalive_timeout  65;
+        
+            #gzip  on;
+        
+            include default.conf;
+        }
+    default.conf: |
+        # Include the perl module
+        perl_modules perl/lib;
+
+        # Define lowercase function
+        perl_set $uri_lowercase 'sub {
+            my $r = shift;
+            my $uri = $r->uri;
+            $uri = lc($uri);
+            return $uri;
+        }';
+
+        server {
+            listen       80;
+            server_name  localhost;
+
+            # Rewrite URI to lowercase
+            location ~ [A-Z] {
+                rewrite ^(.*)$ $scheme://$host$uri_lowercase;
+            }
+
+            {{- range $.Values.locationMaps }}
+            location /{{ .path }} { return 302 {{ .url }}; }
+            {{- end }}
+            # location /abapci { return 302 https://blogs.sap.com/2017/11/11/continuous-integration-in-abap-using-jenkins; }
+            # location /aws { return 302 https://778097775924.signin.aws.amazon.com/console; }
+            # location /sapblogs { return 302 'https://people.sap.com/pacroy#content:blogposts'; }
+            # location /sharefile { return 302 https://exxonmobil.sharefile.com/home/shared/fo7ac565-8d9a-4faa-8a39-6ce364171362; }
+            # location /trello { return 302 https://trello.com/b/E5SSPsHU/personal-2; }
+            # location /wiki { return 302 https://wiki.chairat.me/; }
+            # location / { return 302 https://medium.com/pacroy; }
+
+            #error_page  404              /404.html;
+
+            error_page   500 502 503 504  /50x.html;
+            location = /50x.html {
+                root   /usr/share/nginx/html;
+            }
+        }
