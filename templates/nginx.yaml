@@ -15,7 +15,7 @@ spec:
         app: {{ $.Release.Name }}
     spec:
       containers:
-      - image: nginx:perl
+      - image: nginx:1.17-perl
         name: nginx
         command: ['nginx', '-c', '/etc/nginx/conf.d/nginx.conf', '-g', 'daemon off;']
         ports:
