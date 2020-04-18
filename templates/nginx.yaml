@@ -34,7 +34,7 @@ spec:
       volumes:
       - name: nginx-conf
         configMap:
-          name: nginx-config
+          name: {{ $.Release.Name }}
 ---
 apiVersion: v1
 kind: Service

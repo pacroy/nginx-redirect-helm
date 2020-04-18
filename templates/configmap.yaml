@@ -59,16 +59,9 @@ data:
                 rewrite ^(.*)$ $scheme://$host$uri_lowercase;
             }
 
-            {{- range $.Values.locationMaps }}
+            {{ range $.Values.locationMaps }}
             location /{{ .path }} { return 302 {{ .url }}; }
             {{- end }}
-            # location /abapci { return 302 https://blogs.sap.com/2017/11/11/continuous-integration-in-abap-using-jenkins; }
-            # location /aws { return 302 https://778097775924.signin.aws.amazon.com/console; }
-            # location /sapblogs { return 302 'https://people.sap.com/pacroy#content:blogposts'; }
-            # location /sharefile { return 302 https://exxonmobil.sharefile.com/home/shared/fo7ac565-8d9a-4faa-8a39-6ce364171362; }
-            # location /trello { return 302 https://trello.com/b/E5SSPsHU/personal-2; }
-            # location /wiki { return 302 https://wiki.chairat.me/; }
-            # location / { return 302 https://medium.com/pacroy; }
 
             #error_page  404              /404.html;
 
