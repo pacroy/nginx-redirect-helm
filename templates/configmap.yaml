@@ -59,6 +59,8 @@ data:
                 rewrite ^(.*)$ $scheme://$host$uri_lowercase;
             }
 
+            location /health/check { return 200; }
+
             {{ range $.Values.locationMaps }}
             location /{{ .path }} { return 302 {{ .url }}; }
             {{- end }}
