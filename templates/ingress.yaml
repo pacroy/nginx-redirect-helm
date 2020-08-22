@@ -11,14 +11,7 @@ metadata:
 spec:
   rules:
   {{- range .Values.appHost }}
-  - host: {{ required "appHost is required" . | quote }}
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: {{ $.Release.Name }}
-          servicePort: 80
-  - host: {{ printf "%s.%s" "www" . | quote }}
+  - host: {{ . | quote }}
     http:
       paths:
       - path: /
@@ -30,6 +23,5 @@ spec:
     - hosts:
       {{- range .Values.appHost }}
       - {{ . | quote }}
-      - {{ printf "%s.%s" "www" . | quote }}
       {{- end }}
       secretName: {{ $.Release.Name }}
