@@ -10,21 +10,26 @@ metadata:
   namespace: {{ $.Release.Namespace }}
 spec:
   rules:
-  - host: {{ required "appHost is required" $.Values.appHost }}
+  {{- range .Values.appHost }}
+  - host: {{ required "appHost is required" . | quote }}
     http:
       paths:
       - path: /
         backend:
           serviceName: {{ $.Release.Name }}
           servicePort: 80
-  - host: {{ printf "%s.%s" "www" $.Values.appHost }}
+  - host: {{ printf "%s.%s" "www" . | quote }}
     http:
       paths:
       - path: /
         backend:
           serviceName: {{ $.Release.Name }}
           servicePort: 80
+  {{- end }}
   tls:
     - hosts:
-        - {{ $.Values.appHost }}
+      {{- range .Values.appHost }}
+      - {{ . | quote }}
+      - {{ printf "%s.%s" "www" . | quote }}
+      {{- end }}
       secretName: {{ $.Release.Name }}
