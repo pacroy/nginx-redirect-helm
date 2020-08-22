@@ -1,4 +1,5 @@
-appHost:  #go.to
+appHost:  
+  # - go.to
 locationMaps:
   # - path: #test
   #   url:  #https://www.target.com
