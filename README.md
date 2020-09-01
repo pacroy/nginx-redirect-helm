@@ -1,15 +1,6 @@
-# Simple NGinX Redirector Helm Chart
+# Simple nginx redirect Helm Chart
 
-## Values File
-
-```yaml
-appHost:  your.to
-locationMaps:
-  - path: test1
-    url:  https://www.target1.com
-  - path: test2
-    url:  https://www.target2.com
-```
+For your own customer short URLs. e.g. http://your.to/somewhere
 
 ## Local Installation
 
@@ -20,13 +11,7 @@ helm install <release_name> . --namespace=<namespace> --values <values_file>
 ## Installation from Repository
 
 ```sh
-helm repo add pacroy https://raw.githubusercontent.com/pacroy/helm-repo/master
-```
-
-```sh
+helm repo add pacroy https://pacroy.github.io/helm-repo/
 helm repo update
-```
-
-```sh
-helm install <release_name> pacroy/nginx-redirector --namespace=<namespace> --values <values_file>
+helm install <release_name> pacroy/nginx-redirect --namespace=<namespace> --values <values_file>
 ```
