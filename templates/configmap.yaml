@@ -59,10 +59,12 @@ data:
                 rewrite ^(.*)$ $scheme://$host$uri_lowercase;
             }
 
+            {{ if $.Values.healthURI }}
             location {{ $.Values.healthURI }} { 
                 return 200 '{"status":"UP"}';
                 add_header Content-Type application/json;
             }
+            {{ end }}
 
             {{ range $.Values.locationMaps }}
             location /{{ .path }} { return 302 {{ .url }}; }
