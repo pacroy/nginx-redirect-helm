@@ -1,6 +1,7 @@
 appHost:  
   # - go.to
 healthURI: #/healthz - Leave blank to disable the endpoint
+helloURI: #/helloz - Leave blank to disable the endpoint
 locationMaps:
   # - path: #test
   #   url:  #https://www.target.com
