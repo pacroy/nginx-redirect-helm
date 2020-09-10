@@ -1,5 +1,6 @@
 appHost:  
   # - go.to
+healthURI: /healthz
 locationMaps:
   # - path: #test
   #   url:  #https://www.target.com
