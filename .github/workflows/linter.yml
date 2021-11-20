@@ -80,7 +80,7 @@ jobs:
           ## Uncomment this section to disable YAML schema validation for OpenShift YAML files
           ## Reference: https://github.com/github/super-linter#environment-variables
           ## ==================================================
-          # VALIDATE_KUBERNETES_KUBEVAL: false
+          VALIDATE_KUBERNETES_KUBEVAL: false
 
           ## ==================================================
           ## Shell script
