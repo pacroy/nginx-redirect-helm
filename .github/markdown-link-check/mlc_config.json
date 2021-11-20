@@ -1,7 +1,7 @@
 {
     "ignorePatterns": [
         {
-            "pattern": "^https?:\\/\\/.*\\.ignored-domain.com"
+            "pattern": "^https?:\\/\\/your\\.to\\/somewhere"
         }
     ],
     "timeout": "20s",
