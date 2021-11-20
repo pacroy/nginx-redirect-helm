@@ -7,7 +7,7 @@
 # # yamllint disable-line                 #
 ###########################################
 ignore: |
-  templates/*.yml
+  ./templates/*.yml
 
 rules:
   braces:
