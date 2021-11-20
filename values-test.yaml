@@ -1,5 +1,6 @@
 appHost:  
-  letsgo.to
+  - letsgo.to
+  - myshorturl.me
 healthURI: /healthz
 helloURI: /helloz
 locationMaps:
