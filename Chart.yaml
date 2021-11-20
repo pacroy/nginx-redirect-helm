@@ -2,10 +2,12 @@ apiVersion: v2
 name: nginx-redirect
 description: Simple Redirector with nginx
 type: application
-version: 1.4.0
+version: 1.4.1
 appVersion: 1.17.0
 sources:
   - https://github.com/pacroy/nginx-redirect
 maintainers:
   - name: Par
     email: pacroy@gmail.com
+annotations:
+  sha: "sha_to_be_replaced"
